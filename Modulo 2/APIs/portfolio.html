@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfólio</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: #282a36;
+      color: #ff5555;
+      line-height: 1.5;
+    }
+    header {
+      background: #44475a;
+      color: #ff5555;
+      padding: 15px 0;
+      text-align: center;
+      font-weight: 700;
+      box-shadow: 0 2px 8px #ff4444cc;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav a {
+      color: #ff5555;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      transition: color 0.3s;
+      cursor: pointer;
+    }
+    nav a:hover {
+      color: #ff79c6;
+    }
+    section {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    h2 {
+      margin-bottom: 20px;
+      text-align: center;
+      color: #ff5555;
+      font-weight: 700;
+    }
+    p {
+      margin-bottom: 15px;
+    }
+    .projetos {
+  display: flex;
+  flex-wrap: nowrap;       /* força os projetos ficarem na mesma linha */       /* permite rolagem horizontal */
+  gap: 12px;               /* espaçamento entre projetos, mais suave */
+  padding-bottom: 10px;    /* para não colar na borda do scroll */
+  -webkit-overflow-scrolling: touch; /* rolagem suave no iOS */
+  justify-content: flex-start;
+}
+
+.projeto {
+  flex-shrink: 0;          /* impede que o projeto encolha */
+  width: 280px;            /* largura fixa pra manter padrão */
+}
+
+    .projeto {
+      background: #44475a;
+      padding: 20px;
+      border-radius: 8px;
+      width: 280px;
+      box-shadow: 0 2px 8px #ff4444cc;
+      text-align: center;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      color: #ff5555;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .projeto:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #ff79c6;
+    }
+    .projeto img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      transition: transform 0.3s ease;
+    }
+    .projeto img:hover {
+      transform: scale(1.02);
+    }
+    .botoes-projeto {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .botoes-projeto button {
+      padding: 10px 15px;
+      border: none;
+      background: #6272a4;
+      color: #ff5555;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 0.3s, color 0.3s;
+      box-shadow: 0 0 5px #ff4444cc;
+    }
+    .botoes-projeto button:hover {
+      background: #ff79c6;
+      color: #282a36;
+      box-shadow: 0 0 10px #ff79c6;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(40, 42, 54, 0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal.active {
+      display: flex;
+    }
+    .modal-content {
+      background: #44475a;
+      padding: 25px;
+      border-radius: 8px;
+      max-width: 500px;
+      width: 90%;
+      position: relative;
+      box-shadow: 0 2px 10px #ff4444cc;
+      animation: fadeIn 0.3s ease forwards;
+      color: #ff5555;
+      font-weight: 700;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 26px;
+      font-weight: bold;
+      color: #ff5555cc;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .close-btn:hover {
+      color: #ff79c6;
+    }
+    form {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #6272a4;
+      border-radius: 6px;
+      font-size: 16px;
+      resize: vertical;
+      background: #282a36;
+      color: #ff5555;
+      font-weight: 700;
+      box-shadow: 0 0 5px #ff4444cc inset;
+      transition: border-color 0.3s;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus {
+      border-color: #ff79c6;
+      outline: none;
+      box-shadow: 0 0 8px #ff79c6 inset;
+    }
+    textarea {
+      min-height: 150px;
+    }
+    button[type="submit"] {
+      width: 100%;
+      background: #6272a4;
+      color: #ff5555;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 700;
+      transition: background 0.3s, color 0.3s;
+      box-shadow: 0 0 5px #ff4444cc;
+    }
+    button[type="submit"]:hover {
+      background: #ff79c6;
+      color: #282a36;
+      box-shadow: 0 0 10px #ff79c6;
+    }
+    .social-buttons {
+      max-width: 700px;
+      margin: 20px auto 40px auto;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .social-buttons a {
+      color: #ff5555;
+      text-decoration: none;
+      font-weight: 700;
+      background: #44475a;
+      padding: 8px 12px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px #ff4444cc;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.3s, color 0.3s;
+      font-size: 14px;
+    }
+    .social-buttons a:hover {
+      background: #ff79c6;
+      color: #282a36;
+      box-shadow: 0 0 10px #ff79c6;
+    }
+    .social-buttons svg {
+      fill: currentColor;
+      width: 18px;
+      height: 18px;
+    }
+    .gif-container {
+      max-width: 900px;
+      margin: 40px auto;
+      text-align: center;
+    }
+    .gif-container img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #ff4444cc;
+    }
+    @media screen and (max-width: 600px) {
+      .projeto {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#sobre">Sobre</a>
+    <a href="#projetos">Projetos</a>
+    <a href="#contato">Contato</a>
+  </nav>
+</header>
+
+<section id="sobre">
+  <h2>Sobre Mim</h2>
+  <p>Meu nome é Isaac, tenho 15 anos e gosto bastante de animes e jogos, atualmente estou fazendo um curso de python, já aprendi Python, API's, Java, Automações e muito mais!</p>
+  <p>Personagem favorito: Sukuna e Kaneki</p>
+  <p>"Se os cara evolui, eles evoluiu e se os cara não evolui, eles não evoluiu"</p>
+  <p>Sou um desenvolvedor iniciante em jornada para dominar as artes do código. Entre commits e bugs, canalizo o caos criativo de Sukuna, aprendendo com cada linha de código — como ele aprendeu com cada maldição.</p>
+  <p>💻 Estudando: Python</p>
+  <p>📚 Próximos passos: Trabalhar com programação ou técnico de</p>
+  <p>🧩 Curioso por: Automações, IA, facilidade</p>
+  <p>☕ Sobrevivendo à base de: Café + Códigos + Jogos + Animes.</p>
+</section>
+
+<section id="projetos">
+  <h2>Projetos</h2>
+  <div class="projetos">
+    <div class="projeto">
+      <img src="https://th.bing.com/th/id/R.f6e8a6b870c2cbd10715466d06d646d9?rik=BJ2wRZ0QPNWP8w&pid=ImgRaw&r=0" alt="Projeto 1">
+      <h3>Projeto 1</h3>
+      <p>Login e calculadora usando flask.</p>
+      <div class="botoes-projeto">
+        <button onclick="abrirModal('modal1')">Ver mais</button>
+        <button onclick="window.open('https://github.com/akiragh0st/Repositorio_Base_akira/blob/main/Modulo%202/APIs/liçãoflaskcalculadoralogin.py', '_blank')">GitHub</button>
+      </div>
+    </div>
+    <div class="projeto">
+      <img src="https://nexdin.com.br/wp-content/uploads/2023/11/moedas.jpg" alt="Projeto 2">
+      <h3>Projeto 2</h3>
+      <p>Conversor de moeda.</p>
+      <div class="botoes-projeto">
+        <button onclick="abrirModal('modal2')">Ver mais</button>
+        <button onclick="window.open('https://github.com/akiragh0st/Repositorio_Base_akira/blob/main/Modulo%201/Exercicios/lição16.py', '_blank')">GitHub</button>
+      </div>
+    </div>
+    <div class="projeto">
+      <img src="https://tse2.mm.bing.net/th/id/OIP.mFF1gP7fY-KYfg0x3ianKQHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Projeto 3">
+      <h3>Projeto 3</h3>
+      <p>Lista de compra para jogos.</p>
+      <div class="botoes-projeto">
+        <button onclick="abrirModal('modal3')">Ver mais</button>
+        <button onclick="window.open('https://github.com/akiragh0st/Repositorio_Base_akira/blob/main/Modulo%201/Exercicios/li%C3%A7%C3%A3o18.py', '_blank')">GitHub</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modais -->
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="fecharModal('modal1')">&times;</span>
+    <h3>Projeto 1</h3>
+    <p>Nesse projeto eu usei flask para criar caminhos a diferentes rotas, Desde de login para calculadora com os quatro operadores principais.</p>
+  </div>
+</div>
+<div id="modal2" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="fecharModal('modal2')">&times;</span>
+    <h3>Projeto 2 - Dolar e Real</h3>
+    <p>Desenvolvi um conversor de moedas simples, apenas para Dolar e Real que como o proprio nome diz, vai converter Real para Dolar e Dolar para Real dependendo do que você quiser.</p>
+  </div>
+</div>
+<div id="modal3" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="fecharModal('modal3')">&times;</span>
+    <h3>Projeto 3 - Lista</h3>
+    <p>Nesse projeto eu desenvolvi uma lista que me permite colocar jogos pré-definidos que eu coloquei e me permite fazer um "carrinho" de comprar para isso, não compra realmente mas é funcional.</p>
+  </div>
+</div>
+
+<section id="contato">
+  <h2>Contato</h2>
+  <form action="https://formsubmit.co/akiraghost1234@gmail.com" method="POST" id="formContato">
+    <input type="text" name="nome" placeholder="Seu nome" required />
+    <input type="email" name="email" placeholder="Seu e-mail" required />
+    <textarea name="mensagem" placeholder="Sua mensagem" required></textarea>
+    <button type="submit">Enviar</button>
+  </form>
+</section>
+
+<div class="social-buttons">
+  <a href="https://github.com/akiragh0st" target="_blank" aria-label="GitHub">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.865 8.166 6.839 9.49.5.09.682-.217.682-.482 0-.237-.008-.868-.013-1.703-2.782.603-3.369-1.342-3.369-1.342-.454-1.153-1.11-1.46-1.11-1.46-.908-.62.069-.608.069-.608 1.004.07 1.532 1.03 1.532 1.03.892 1.53 2.341 1.088 2.91.832.09-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.942 0-1.09.39-1.982 1.029-2.68-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.026A9.564 9.564 0 0 1 12 6.845c.85.004 1.705.115 2.504.338 1.908-1.295 2.747-1.026 2.747-1.026.546 1.377.203 2.394.1 2.647.64.698 1.028 1.59 1.028 2.68 0 3.842-2.338 4.685-4.566 4.934.36.31.68.924.68 1.863 0 1.345-.012 2.43-.012 2.76 0 .268.18.58.688.48A10.005 10.005 0 0 0 22 12c0-5.52-4.48-10-10-10z"/></svg>
+    GitHub
+  </a>
+  <a href="https://instagram.com/akira_gh0st" target="_blank" aria-label="Instagram">
+    <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37a4 4 0 1 1-4.73-4.73 4 4 0 0 1 4.73 4.73z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
+    Instagram
+  </a>
+  <a href="https://discord.com/users/sukuna_aka_akira" target="_blank" aria-label="Discord">
+    <svg viewBox="0 0 24 24"><path d="M8 16s1.5 1.5 4 1.5 4-1.5 4-1.5v-4s-1.5 1.5-4 1.5-4-1.5-4-1.5v4z"/><path d="M12 12a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/><path d="M7 9v6m10-6v6"/></svg>
+    Discord
+  </a>
+  <a href="mailto:akiragh0st1234@gmail.com" target="_blank" aria-label="Email">
+    <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><polyline points="22,6 12,13 2,6"/></svg>
+    Email
+  </a>
+  <a href="https://www.tiktok.com/@akira_gh0st" target="_blank" aria-label="TikTok">
+    <svg viewBox="0 0 24 24"><path d="M9 17a5 5 0 1 0 5-5v4a1 1 0 0 0 1 1h2"/></svg>
+    TikTok
+  </a>
+</div>
+
+<div class="gif-container">
+  <img src="https://github.com/user-attachments/assets/a142649e-3e47-41d8-b392-268ea646d2a5" alt="Pixel Sukuna">
+</div>
+
+<footer>
+  <p>© 2025 Isaac | Todos os direito reservados</p>
+</footer>
+
+<script>
+  function abrirModal(id) {
+    document.getElementById(id).classList.add('active');
+  }
+  function fecharModal(id) {
+    document.getElementById(id).classList.remove('active');
+  }
+  window.addEventListener('click', e => {
+    document.querySelectorAll('.modal.active').forEach(modal => {
+      if(e.target === modal) modal.classList.remove('active');
+    });
+  });
+</script>
+
+</body>
+</html>
