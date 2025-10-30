@@ -77,7 +77,21 @@ cursor = Fabrica.cursor()
 # cursor.execute("SELECT Alunos.Nome, Cursos.Nome FROM Matriculas INNER JOIN Alunos ON id_aluno = Alunos.id INNER JOIN Cursos ON id_curso = Cursos.id")
 # cursor.execute("SELECT COUNT(id_aluno) FROM Matriculas WHERE id_curso = 2")
 
-cursor.execute("UPDATE cursos SET preço = preço * 1.10  WHERE carga_horaria >= 80")
+# Etapa 4 – UPDATE
+# cursor.execute("UPDATE cursos SET preço = preço * 1.10  WHERE carga_horaria >= 80")
+# cursor.execute("UPDATE Alunos SET Cidade = 'Rio de Janeiro' WHERE Nome = 'Carioca teste delete'")
+
+# # Etapa 5 – DELETE
+# cursor.execute("DELETE FROM Alunos WHERE id = 17")
+# cursor.execute("DELETE FROM Matriculas WHERE id_aluno = 17")
+# cursor.execute("DELETE FROM Cursos WHERE preço <= 200.00")
+
+# # Etapa 6 – INSERT Extra
+# cursor.execute("INSERT INTO Cursos (nome, carga_horaria, preço) VALUES ('Inteligência Artificial', 60, 1200.00)")
+
+# Etapa 7 – Relatório Final
+#cursor.execute("SELECT Cursos.Nome AS Curso, Cursos.preço AS Preço, COUNT(Matriculas.id_aluno) AS Total_Aluno FROM Cursos LEFT JOIN Matriculas ON Matriculas.id_curso = Cursos.id GROUP BY Cursos.id, Cursos.Nome, Cursos.preço ORDER BY Cursos.preço DESC LIMIT 5")
+#print(cursor.fetchall())
 
 
 Fabrica.commit()
