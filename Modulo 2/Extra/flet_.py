@@ -8,9 +8,10 @@ def main(page: ft.Page):
     def click(e):
         login = text.value
         print("XD", login)
-    botao = ft.ElevatedButton("José é espancado", on_click=click)
+    botao = ft.ElevatedButton("Nome top", on_click=click)
     page.add(ft.Row([text,entrega_texto,]), 
             ft.Row([text_2, entrega_texto_2]),
             ft.Row([botao]))
      
+
 ft.app(target= main)
